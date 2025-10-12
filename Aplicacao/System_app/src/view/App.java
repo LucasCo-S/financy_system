@@ -6,6 +6,11 @@ public class App {
         System.out.println("Iniciando Programa");
 
         Control.iniciar();
+
+        while(true){
+            break;
+        }
+
         Control.encerrar();
 
     }

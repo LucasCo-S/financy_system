@@ -11,7 +11,7 @@ CREATE TABLE cliente (
 
 CREATE TABLE conta (
 	id_Conta INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    numero_Conta VARCHAR(15) NOT NULL,
+    numero_Conta VARCHAR(6) NOT NULL,
     saldo DECIMAL(15,2) DEFAULT 0.0,
     data_Abertura TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     id_Cliente INT UNSIGNED NOT NULL,
@@ -20,7 +20,6 @@ CREATE TABLE conta (
     CONSTRAINT fk_ClienteConta FOREIGN KEY (id_Cliente) REFERENCES Cliente (id_Cliente)
     ON UPDATE CASCADE ON DELETE RESTRICT
 );
-
 
 CREATE TABLE conta_corrente(
 	id_conta INT UNSIGNED PRIMARY KEY,
