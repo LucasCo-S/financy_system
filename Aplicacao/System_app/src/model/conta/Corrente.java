@@ -1,18 +1,20 @@
 package model.conta;
 
-public class Corrente extends Conta{
-    private double tariaMensal;
+import java.math.BigDecimal;
 
-    public Corrente(String n_conta, double saldo, String data_abert, int id_cliente, String tipo,double tarifaMensal){
+public class Corrente extends Conta{
+    private BigDecimal tariaMensal;
+
+    public Corrente(String n_conta, BigDecimal saldo, String data_abert, int id_cliente, String tipo, BigDecimal tarifaMensal){
         super(n_conta, saldo, data_abert, id_cliente, tipo);
         this.tariaMensal = tarifaMensal;
     }
 
-    public double getTariaMensal() {
+    public BigDecimal getTariaMensal() {
         return tariaMensal;
     }
 
-    public void setTariaMensal(double tariaMensal) {
+    public void setTariaMensal(BigDecimal tariaMensal) {
         this.tariaMensal = tariaMensal;
     }
 }

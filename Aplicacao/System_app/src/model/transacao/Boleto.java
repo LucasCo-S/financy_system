@@ -1,10 +1,13 @@
-package model.tranferencia;
+package model.transacao;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Boleto extends Transacao{
     private String cod_barras;
     private String data_venc;
 
-    public Boleto(String forma_pag, String data_pag, double valor, int conta_orig, int conta_dest, String cod_barras, String data_venc){
+    public Boleto(String forma_pag, Timestamp data_pag, BigDecimal valor, int conta_orig, int conta_dest, String cod_barras, String data_venc){
         super(forma_pag, data_pag, valor, conta_orig, conta_dest);
         this.cod_barras = cod_barras;
         this.data_venc = data_venc;

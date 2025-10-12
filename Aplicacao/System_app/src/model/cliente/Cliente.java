@@ -12,6 +12,14 @@ public class Cliente {
         this.data_nasc = data_nasc;
     }
 
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }

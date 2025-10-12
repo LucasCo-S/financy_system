@@ -1,16 +1,16 @@
 package model.conta;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 
 public class Conta {
     private int id;
     private String n_conta;
-    private double saldo;
+    private BigDecimal saldo;
     private String data_abert;
     private int id_cliente;
     private String tipo;
 
-    public Conta(String n_conta, double saldo, String data_abert, int id_cliente, String tipo){
+    public Conta(String n_conta, BigDecimal saldo, String data_abert, int id_cliente, String tipo){
         this.n_conta = n_conta;
         this.saldo = saldo;
         this.data_abert = data_abert;
@@ -34,11 +34,11 @@ public class Conta {
         this.n_conta = n_conta;
     }
 
-    public double getSaldo() {
+    public BigDecimal getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(double saldo) {
+    public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
 

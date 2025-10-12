@@ -1,14 +1,17 @@
-package model.tranferencia;
+package model.transacao;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Transacao {
     private int id;
     private String forma_pag;
-    private String data_pag;
-    private double valor;
+    private Timestamp data_pag;
+    private BigDecimal valor;
     private int conta_orig;
     private int conta_dest;
 
-    public Transacao(String forma_pag, String data_pag, double valor, int conta_orig, int conta_dest){
+    public Transacao(String forma_pag, Timestamp data_pag, BigDecimal valor, int conta_orig, int conta_dest){
         this.forma_pag = forma_pag;
         this.data_pag = data_pag;
         this.valor = valor;
@@ -32,19 +35,19 @@ public class Transacao {
         this.forma_pag = forma_pag;
     }
 
-    public String getData_pag() {
+    public Timestamp getData_pag() {
         return data_pag;
     }
 
-    public void setData_pag(String data_pag) {
+    public void setData_pag(Timestamp data_pag) {
         this.data_pag = data_pag;
     }
 
-    public double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(double valor) {
+    public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
 

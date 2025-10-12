@@ -1,10 +1,11 @@
 package model.conta;
 
+import java.math.BigDecimal;
 public class Poupanca extends Conta{
     private String data_rend;
-    private double rendimento;
+    private BigDecimal rendimento;
 
-    public Poupanca(String n_conta, double saldo, String data_abert, int id_cliente, String tipo, String data_rend, double rendimento){
+    public Poupanca(String n_conta, BigDecimal saldo, String data_abert, int id_cliente, String tipo, String data_rend, BigDecimal rendimento){
         super(n_conta, saldo, data_abert, id_cliente, tipo);
         this.data_rend = data_rend;
         this.rendimento = rendimento;
@@ -18,11 +19,11 @@ public class Poupanca extends Conta{
         this.data_rend = data_rend;
     }
 
-    public double getRendimento() {
+    public BigDecimal getRendimento() {
         return rendimento;
     }
 
-    public void setRendimento(double rendimento) {
+    public void setRendimento(BigDecimal rendimento) {
         this.rendimento = rendimento;
     }
 
