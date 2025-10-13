@@ -1,16 +1,17 @@
 package model.conta;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class Conta {
     private int id;
     private String n_conta;
     private BigDecimal saldo;
-    private String data_abert;
+    private Timestamp data_abert;
     private int id_cliente;
     private String tipo;
 
-    public Conta(String n_conta, BigDecimal saldo, String data_abert, int id_cliente, String tipo){
+    public Conta(String n_conta, BigDecimal saldo, Timestamp data_abert, int id_cliente, String tipo){
         this.n_conta = n_conta;
         this.saldo = saldo;
         this.data_abert = data_abert;
@@ -42,11 +43,11 @@ public class Conta {
         this.saldo = saldo;
     }
 
-    public String getData_abert() {
+    public Timestamp getData_abert() {
         return data_abert;
     }
 
-    public void setData_abert(String data_abert) {
+    public void setData_abert(Timestamp data_abert) {
         this.data_abert = data_abert;
     }
 

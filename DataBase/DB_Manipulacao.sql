@@ -22,6 +22,10 @@ INSERT INTO conta (numero_Conta, saldo, id_Cliente, tipo_conta) VALUES
 INSERT INTO conta_poupanca (id_conta, rendimento) VALUES
 (2, 0.45);
 
+SELECT cl.nome, cl.cpf, cl.data_nascimento, co.numero_conta, co.saldo, co.data_abertura, co.tipo_conta, i.tipoInvestimento, i.valorAplicado
+FROM cliente cl INNER JOIN conta co ON cl.id_cliente = co.id_cliente 
+INNER JOIN conta_investimento i ON co.id_conta = i.id_conta WHERE co.id_conta = 3;
+
 INSERT INTO conta (numero_Conta, saldo, id_Cliente, tipo_conta) VALUES
 ('0008-0', 30000.00, 2, 'Investimento'),
 ('0009-0', 12000.00, 1, 'Investimento');
@@ -31,7 +35,7 @@ INSERT INTO conta_investimento (id_conta, tipoInvestimento, valorAplicado) VALUE
 
 INSERT INTO transacao (formaPagamento, dataPagamento, valor, id_contaOrg, id_contaDest) VALUES
 ('PIX', '2025-10-11 09:15:00', 250.00, 1, 2),
-('Boleto', '2025-10-10 15:40:00', 480.00, 3, 5);
+('Boleto', '2025-10-10 15:40:00', 480.00, 2, 1);
 
 INSERT INTO tran_pix (chaveOrg, chaveDest) VALUES
 ('joao@banco.com', 'maria@banco.com'),

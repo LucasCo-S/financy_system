@@ -1,11 +1,13 @@
 package model.conta;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 public class Poupanca extends Conta{
     private String data_rend;
     private BigDecimal rendimento;
 
-    public Poupanca(String n_conta, BigDecimal saldo, String data_abert, int id_cliente, String tipo, String data_rend, BigDecimal rendimento){
+    public Poupanca(String n_conta, BigDecimal saldo, Timestamp data_abert, int id_cliente, String tipo, String data_rend, BigDecimal rendimento){
         super(n_conta, saldo, data_abert, id_cliente, tipo);
         this.data_rend = data_rend;
         this.rendimento = rendimento;
