@@ -13,6 +13,12 @@ public class Investimento extends Conta{
         this.valor_aplic = valor_aplic;
     }
 
+    public Investimento(String n_conta, BigDecimal saldo, int id_cliente, String tipo, String tipo_inv, BigDecimal valor_aplic){
+        super(n_conta, saldo, id_cliente, tipo);
+        this.tipo_inv = tipo_inv;
+        this.valor_aplic = valor_aplic;
+    }
+
     public String getTipo_inv() {
         return tipo_inv;
     }

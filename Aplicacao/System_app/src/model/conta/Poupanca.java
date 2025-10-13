@@ -9,7 +9,11 @@ public class Poupanca extends Conta{
 
     public Poupanca(String n_conta, BigDecimal saldo, Timestamp data_abert, int id_cliente, String tipo, String data_rend, BigDecimal rendimento){
         super(n_conta, saldo, data_abert, id_cliente, tipo);
-        this.data_rend = data_rend;
+        this.rendimento = rendimento;
+    }
+
+    public Poupanca(String n_conta, BigDecimal saldo, int id_cliente, String tipo, BigDecimal rendimento){
+        super(n_conta, saldo, id_cliente, tipo);
         this.rendimento = rendimento;
     }
 

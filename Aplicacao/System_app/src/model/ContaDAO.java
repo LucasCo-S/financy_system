@@ -9,7 +9,7 @@ import model.conta.*;
 import model.cliente.*;
 
 public class ContaDAO {
-    public static void InsertConta(Connection conexao,Conta account){
+    public static void InsertConta(Connection conexao, Conta account){
         String cmd_sql = "INSERT INTO conta (numero_Conta, saldo, id_Cliente, tipo_conta) VALUES (?, ?, ?, ?)";
 
         try(PreparedStatement state = conexao.prepareStatement(cmd_sql)){

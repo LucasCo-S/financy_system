@@ -11,6 +11,11 @@ public class Corrente extends Conta{
         this.tariaMensal = tarifaMensal;
     }
 
+    public Corrente(String n_conta, BigDecimal saldo, int id_cliente, String tipo, BigDecimal tarifaMensal){
+        super(n_conta, saldo, id_cliente, tipo);
+        this.tariaMensal = tarifaMensal;
+    }
+
     public BigDecimal getTariaMensal() {
         return tariaMensal;
     }

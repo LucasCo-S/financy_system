@@ -2,7 +2,6 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -67,13 +66,15 @@ public class TransacaoDAO {
         }
     }
 
-    public static List<Transacao> SelectExtrato(Connection conexao){
-        String query_sql = "SELECT * FROM transacao";
+    public static List<Transacao> SelectExtrato(Connection conexao, int id_conta){
+        String query_sql = "SELECT * FROM transacao WHERE id_contaOrg = ?";
 
         List<Transacao> extrato = new ArrayList<>();
 
-        try(Statement state = conexao.createStatement();
-            ResultSet result = state.executeQuery(query_sql)){
+        try(PreparedStatement state = conexao.prepareStatement(query_sql)){
+            state.setInt(1, id_conta);
+
+            ResultSet result = state.executeQuery(query_sql);
 
             while (result.next()) {
                 Transacao t = new Transacao(
@@ -87,6 +88,7 @@ public class TransacaoDAO {
                 t.setId(result.getInt("id_transacao"));
     
                 extrato.add(t);
+                result.close();
             }
 
         }catch (SQLException e){

@@ -19,6 +19,13 @@ public class Conta {
         this.tipo = tipo;
     }
 
+    public Conta(String n_conta, BigDecimal saldo, int id_cliente, String tipo){
+        this.n_conta = n_conta;
+        this.saldo = saldo;
+        this.id_cliente = id_cliente;
+        this.tipo = tipo;
+    }
+
     public int getId() {
         return id;
     }
