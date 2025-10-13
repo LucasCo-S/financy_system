@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Timestamp;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.List;
@@ -27,6 +28,7 @@ public class Control {
 
     public static void encerrar(){
         Model.close_connection(conexao);
+        scan.close();
     }
 
     public static void cadastroConta(){
@@ -172,4 +174,92 @@ public class Control {
             System.out.println("Não há transações para esta conta.");
         }
     }
+
+    public static boolean rodarMenu() {
+        int option = 0;
+        boolean erro = true;
+
+        while (erro) {
+            try {
+                System.out.print("""
+                        Que operação deseja realizar? Digite apenas o número.
+                        
+                        1 - Cadastrar conta.
+                        2 - Realizar transação.
+                        3 - Consultar extrato.
+                        4 - Encerrar programa.\s
+                         R:\s""");
+
+                option = scan.nextInt();
+                scan.nextLine(); // Limpa o \n do buffer que o .nextInt() não lê
+
+                if (option < 1 || option > 4) {
+                    throw new InputMismatchException("\nPor favor, digite uma opção válida");
+                } else erro = false;
+            }
+            catch (Exception e) {
+                System.out.println("Erro: " + e.getMessage());
+                limparTela();
+            }
+        }
+
+        switch (option) {
+
+            case 1 -> {
+                cadastroConta();
+                limparTela();
+                return true;
+            }
+
+            case 2 -> {
+                realizarTransacao();
+                limparTela();
+                return true;
+            }
+
+            case 3 -> {
+                consultarExtrato();
+                limparTela();
+                return true;
+            }
+
+            case 4 -> {
+                System.out.println();
+                System.out.println("Encerrando programa...");
+                return false;
+            }
+
+            default -> {
+                return true;
+            }
+
+        }
+
+    }
+
+    public static void limparTela() {
+        System.out.println("\nAperte ENTER para continuar...");
+        scan.nextLine();
+
+        try {
+            String os = System.getProperty("os.name");
+
+            if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+
+        } catch (Exception e1) {
+            // Se falhar, tenta limpar via códigos ANSI
+            try {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            } catch (Exception e2) {
+                // Se tudo isso der errado o jeito é imprimir 50 linhas mesmo
+                for (int i = 0; i < 50; i++) System.out.println();
+            }
+        }
+    }
+
 }
