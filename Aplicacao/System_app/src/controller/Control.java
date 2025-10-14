@@ -155,8 +155,22 @@ public class Control {
 
         Transacao transacao = new Transacao(forma, data_pag, valor, id_origem, id_destino);
 
+        Corrente aux01 = new Corrente(id_origem);
+
+        BigDecimal saldo01 = ContaDAO.SelectSaldo(conexao, aux01);
+
+        Corrente aux02 = new Corrente(id_destino);
+
+        BigDecimal saldo02 = ContaDAO.SelectSaldo(conexao, aux02);
+
+        aux01.setSaldo(saldo01.subtract(valor));
+        aux02.setSaldo(saldo02.add(valor));
+
         //Inserindo objeto no banco
         TransacaoDAO.InsertTransferencia(conexao, transacao);
+
+        ContaDAO.UpdateSalario(conexao, aux01);
+        ContaDAO.UpdateSalario(conexao, aux02);
     }
 
     public static void depositarSaldo(){

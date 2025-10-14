@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -86,6 +87,30 @@ public class ContaDAO {
         } catch (SQLException e){
             System.out.println("Erro ao atualizar salario: " + e.getMessage());
         }
+    }
+
+    public static BigDecimal SelectSaldo(Connection conexao, Corrente account){
+        String query_sql = "SELECT saldo FROM conta WHERE id_conta = ?";
+
+        BigDecimal saldo = new BigDecimal("0.0");
+
+
+        try(PreparedStatement state = conexao.prepareStatement(query_sql)){
+            state.setInt(1, account.getId());
+
+            ResultSet result = state.executeQuery();
+
+            if(result.next()){
+                saldo = result.getBigDecimal("saldo");
+            }
+
+            result.close();
+
+        } catch (SQLException e){
+            System.out.println("Erro ao consultar dados: " + e.getMessage());
+        }
+
+        return saldo;
     }
 
     public static Object[] SelectDados(Connection conexao, Corrente account){
