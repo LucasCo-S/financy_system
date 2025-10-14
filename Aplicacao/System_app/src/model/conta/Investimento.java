@@ -19,6 +19,10 @@ public class Investimento extends Conta{
         this.valor_aplic = valor_aplic;
     }
 
+    public Investimento(int id){
+        super(id);
+    }
+
     public String getTipo_inv() {
         return tipo_inv;
     }

@@ -17,6 +17,10 @@ public class Poupanca extends Conta{
         this.rendimento = rendimento;
     }
 
+    public Poupanca(int id){
+        super(id);
+    }
+
     public String getData_rend() {
         return data_rend;
     }

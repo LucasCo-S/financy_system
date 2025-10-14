@@ -159,6 +159,29 @@ public class Control {
         TransacaoDAO.InsertTransferencia(conexao, transacao);
     }
 
+    public static void depositarSaldo(){
+        System.out.println("Digite o id da sua conta:");
+        String str_id = scan.nextLine();
+        int id = Integer.parseInt(str_id);
+
+        System.out.println("Qual valor deseja depositar?");
+        String str_valor = scan.nextLine();
+        BigDecimal valor = new BigDecimal(str_valor);
+
+        Corrente corrente = new Corrente(id);
+        Object[] dados = ContaDAO.SelectDados(conexao, corrente);
+
+        Corrente novo_corr = (Corrente) dados[0];
+        
+        valor = valor.add(novo_corr.getSaldo());
+
+        Conta conta = new Conta(valor, id);
+
+        ContaDAO.UpdateSalario(conexao, conta);
+
+        System.out.println("Valor depositado com sucesso.");
+    }
+
     public static void consultarExtrato() {
         System.out.println("Digite o id da conta:");
         String str_id = scan.nextLine();
@@ -182,6 +205,85 @@ public class Control {
         }
     }
 
+    public static void apresentarDados() {
+    System.out.println("Digite o id da sua conta:");
+    String str_id = scan.nextLine();
+    int id = Integer.parseInt(str_id);
+
+    Conta conta = new Conta(id);
+
+    // Descobre o tipo de conta (corrente, poupanca ou investimento)
+    String tipoConta = ContaDAO.SelectTipoConta(conexao, conta);
+    Object[] dados = null;
+
+    if (tipoConta == null) {
+        System.out.println("Conta não encontrada.");
+        return;
+    }
+
+    // Switch baseado apenas no tipo da conta
+    switch (tipoConta.toLowerCase()) {
+        case "corrente" -> {
+            Corrente c = new Corrente(id);
+            dados = ContaDAO.SelectDados(conexao, c);
+        }
+        case "poupanca" -> {
+            Poupanca p = new Poupanca(id);
+            dados = ContaDAO.SelectDados(conexao, p);
+        }
+        case "investimento" -> {
+            Investimento i = new Investimento(id);
+            dados = ContaDAO.SelectDados(conexao, i);
+        }
+        default -> {
+            System.out.println("Tipo de conta desconhecido: " + tipoConta);
+            return;
+        }
+    }
+
+    // Validação de segurança
+    if (dados == null || dados[0] == null || dados[1] == null) {
+        System.out.println("Nenhum dado encontrado para essa conta.");
+        return;
+    }
+
+    // Extrai conta e cliente
+    Conta contaRetornada = (Conta) dados[0];
+    Cliente cliente = (Cliente) dados[1];
+
+    System.out.println("===== Dados do Cliente =====");
+    System.out.println("Nome: " + cliente.getNome());
+    System.out.println("CPF: " + cliente.getCpf());
+    System.out.println("Data de Nascimento: " + cliente.getData_nasc());
+
+    System.out.println("\n===== Dados da Conta =====");
+    System.out.println("Número da Conta: " + contaRetornada.getN_conta());
+    System.out.println("Saldo: R$ " + contaRetornada.getSaldo());
+    System.out.println("Data de Abertura: " + contaRetornada.getData_abert());
+    System.out.println("Tipo de Conta: " + contaRetornada.getTipo());
+
+    // Exibe atributos específicos conforme o tipo
+    switch (tipoConta.toLowerCase()) {
+        case "corrente" -> {
+            Corrente c = (Corrente) contaRetornada;
+            System.out.println("Tarifa Mensal: R$ " + c.getTariaMensal());
+        }
+        case "poupanca" -> {
+            Poupanca p = (Poupanca) contaRetornada;
+            System.out.println("Data de Rendimento: " + p.getData_rend());
+            System.out.println("Rendimento: " + p.getRendimento());
+        }
+        case "investimento" -> {
+            Investimento i = (Investimento) contaRetornada;
+            System.out.println("Tipo de Investimento: " + i.getTipo_inv());
+            System.out.println("Valor Aplicado: R$ " + i.getValor_aplic());
+        }
+        default -> System.out.println("Tipo de conta não reconhecido.");
+    }
+}
+
+
+
     public static boolean rodarMenu() {
         int option = 0;
         boolean erro = true;
@@ -194,13 +296,15 @@ public class Control {
                         1 - Cadastrar conta.
                         2 - Realizar transação.
                         3 - Consultar extrato.
-                        4 - Encerrar programa.\s
+                        4 - Depositar saldo.
+                        5 - Apresentar dados.
+                        0 - Encerrar programa.\s
                          R:\s""");
 
                 option = scan.nextInt();
                 scan.nextLine(); // Limpa o \n do buffer que o .nextInt() não lê
 
-                if (option < 1 || option > 4) {
+                if (option < 0 || option > 5) {
                     throw new InputMismatchException("\nPor favor, digite uma opção válida");
                 } else erro = false;
             }
@@ -231,6 +335,18 @@ public class Control {
             }
 
             case 4 -> {
+                depositarSaldo();
+                limparTela();
+                return true;
+            }
+
+            case 5 ->{
+                apresentarDados();
+                limparTela();
+                return true;
+            }
+
+            case 0 -> {
                 System.out.println();
                 System.out.println("Encerrando programa...");
                 return false;

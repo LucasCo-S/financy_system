@@ -199,4 +199,25 @@ public class ContaDAO {
 
         return dados;
     }
+
+    public static String SelectTipoConta(Connection conexao, Conta account){
+        String queryTipo = "SELECT tipo_conta FROM conta WHERE id_conta = ?";
+
+        String tipoConta = null;
+
+        try (PreparedStatement state = conexao.prepareStatement(queryTipo)) {
+            state.setInt(1, account.getId());
+            ResultSet result = state.executeQuery();
+
+            if (result.next()) {
+                tipoConta = result.getString("tipo_conta");
+            }
+
+            result.close();
+        } catch (SQLException e) {
+            System.out.println("Erro ao consultar tipo de conta: " + e.getMessage());
+        }
+
+        return tipoConta;
+    }
 }

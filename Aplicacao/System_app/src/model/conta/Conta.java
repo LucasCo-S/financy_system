@@ -26,6 +26,15 @@ public class Conta {
         this.tipo = tipo;
     }
 
+    public Conta(BigDecimal saldo, int id){
+        this.id = id;
+        this.saldo = saldo;
+    }
+
+    public Conta(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

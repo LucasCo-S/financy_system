@@ -16,6 +16,10 @@ public class Corrente extends Conta{
         this.tariaMensal = tarifaMensal;
     }
 
+    public Corrente(int id){
+        super(id);
+    }
+
     public BigDecimal getTariaMensal() {
         return tariaMensal;
     }
