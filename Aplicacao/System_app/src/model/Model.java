@@ -17,7 +17,6 @@ public class Model {
             if(conexao == null){
                 conexao = DriverManager.getConnection(url, user, pass);
                 System.out.println("Conexão bem-sucedida!");
-                conexao.close();
             }
 
         } catch (SQLException e) {

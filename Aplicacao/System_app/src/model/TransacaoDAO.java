@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class TransacaoDAO {
     public static void InsertTransferencia(Connection conexao, Transacao tran){
         String cmd_sql = "INSERT INTO transacao (formaPagamento, dataPagamento, valor, id_contaOrg, id_contaDest) VALUES (?, ?, ?, ?, ?)";
 
-        try(PreparedStatement state = conexao.prepareStatement(cmd_sql)){
+        try(PreparedStatement state = conexao.prepareStatement(cmd_sql, Statement.RETURN_GENERATED_KEYS)){
             state.setString(1, tran.getForma_pag());
             state.setTimestamp(2, tran.getData_pag());
             state.setBigDecimal(3, tran.getValor());
@@ -74,7 +75,7 @@ public class TransacaoDAO {
         try(PreparedStatement state = conexao.prepareStatement(query_sql)){
             state.setInt(1, id_conta);
 
-            ResultSet result = state.executeQuery(query_sql);
+            ResultSet result = state.executeQuery();
 
             while (result.next()) {
                 Transacao t = new Transacao(

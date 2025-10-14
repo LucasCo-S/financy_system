@@ -85,10 +85,13 @@ public class Control {
         //Inserindo conta no banco
         ContaDAO.InsertConta(conexao, conta);
 
+        //Criando contas especificas
         switch (conta.getTipo()) {
             case "Corrente":
                 BigDecimal tarifa = new BigDecimal("0.5");
                 Corrente corrente = new Corrente(conta.getN_conta(), conta.getSaldo(), conta.getId_cliente(), conta.getTipo(), tarifa);
+
+                corrente.setId(conta.getId());
 
                 ContaDAO.InsertCorrente(conexao, corrente);
 
@@ -97,6 +100,8 @@ public class Control {
                 BigDecimal rend = new BigDecimal("0.12");
                 Poupanca poupanca = new Poupanca(conta.getN_conta(), conta.getSaldo(), conta.getId_cliente(), conta.getTipo(), rend);
 
+                poupanca.setId(conta.getId());
+
                 ContaDAO.InsertPoupanca(conexao, poupanca);
                 
                 break;
@@ -104,6 +109,8 @@ public class Control {
                 String tipo_inv = "Padrao";
                 BigDecimal valor = new BigDecimal("0.0");
                 Investimento investimento = new Investimento(conta.getN_conta(), conta.getSaldo(), conta.getId_cliente(), conta.getTipo(), tipo_inv, valor);
+
+                investimento.setId(conta.getId());
 
                 ContaDAO.InsertInvestimento(conexao, investimento);
                 

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import model.conta.*;
 import model.cliente.*;
@@ -12,7 +13,7 @@ public class ContaDAO {
     public static void InsertConta(Connection conexao, Conta account){
         String cmd_sql = "INSERT INTO conta (numero_Conta, saldo, id_Cliente, tipo_conta) VALUES (?, ?, ?, ?)";
 
-        try(PreparedStatement state = conexao.prepareStatement(cmd_sql)){
+        try(PreparedStatement state = conexao.prepareStatement(cmd_sql, Statement.RETURN_GENERATED_KEYS)){
             state.setString(1, account.getN_conta());
             state.setBigDecimal(2, account.getSaldo());
             state.setInt(3, account.getId_cliente());
@@ -22,7 +23,7 @@ public class ContaDAO {
 
             try(ResultSet result = state.getGeneratedKeys()){
                 if(result.next()){
-                    account.setId_cliente(result.getInt(1));
+                    account.setId(result.getInt(1));
                 }
             }
 
